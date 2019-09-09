@@ -9,8 +9,9 @@ import (
 
 	"math"
 
+	"gota/series"
+
 	"github.com/gonum/matrix/mat64"
-	"github.com/kniren/gota/series"
 )
 
 // compareFloats compares floating point values up to the number of digits specified.

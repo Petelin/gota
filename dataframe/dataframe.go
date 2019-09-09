@@ -13,7 +13,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/go-gota/gota/series"
+	"gota/series"
 )
 
 // DataFrame is a data structure designed for operating on table like data (Such
@@ -1025,7 +1025,8 @@ func LoadMaps(maps []map[string]interface{}, options ...LoadOption) DataFrame {
 	for k, m := range maps {
 		row := make([]string, len(colnames))
 		for i, colname := range colnames {
-			element := ""
+			//Change: if not in col, then it is missing value
+			element := "NaN"
 			val, ok := m[colname]
 			if ok {
 				element = fmt.Sprint(val)
@@ -1834,7 +1835,8 @@ func parseSelectIndexes(l int, indexes SelectIndexes, colnames []string) ([]int,
 func findType(arr []string) series.Type {
 	var hasFloats, hasInts, hasBools, hasStrings bool
 	for _, str := range arr {
-		if str == "" || str == "NaN" {
+		//if str == "" || str == "NaN" {
+		if str == "NaN" {
 			continue
 		}
 		if _, err := strconv.Atoi(str); err == nil {
